@@ -6,6 +6,19 @@ spring:
     name: api-gateway
   cloud:
     gateway:
+      # --- AGREGAR CONFIGURACIÓN DE CORS AQUÍ ---
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*" # O la URL específica de tu frontend en Render
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+      # ------------------------------------------
       routes:
         # 1. Ruta para el Microservicio de Reportes de Incendios
         - id: ms-deteccion-y-reporte
