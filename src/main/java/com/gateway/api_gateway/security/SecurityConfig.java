@@ -14,6 +14,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // Desactivar CSRF para permitir POST
             .authorizeExchange(exchanges -> exchanges
+                .pathMatchers("/api/v1/usuarios/**").permitAll()
                 .anyExchange().permitAll() // Permitir todo el tráfico
             );
         return http.build();

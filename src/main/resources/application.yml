@@ -2,23 +2,19 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: api-gateway
   cloud:
     gateway:
-      globalcors:
-        add-to-simple-url-handler-mapping: true 
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:5173"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders: "*"
-            allowCredentials: true
       routes:
-        - id: ms-deteccion
-          uri: http://ms-deteccion:8081
+        # 1. Ruta para el Microservicio de Reportes de Incendios
+        - id: ms-deteccion-y-reporte
+          uri: https://ms-deteccion-y-reporte.onrender.com
           predicates:
-            - Path=/api/reportes/** 
+            - Path=/api/reportes/**
+
+        # 2. NUEVA RUTA: Redirige las peticiones de usuarios al mismo microservicio
+        - id: ms-usuarios-routing
+          uri: https://ms-deteccion-y-reporte.onrender.com
+          predicates:
+            - Path=/api/v1/usuarios/**
