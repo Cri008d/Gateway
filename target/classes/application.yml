@@ -27,7 +27,7 @@ spring:
             - Path=/api/reportes/**
 
         # 2. NUEVA RUTA: Redirige las peticiones de usuarios al mismo microservicio
-        - id: ms-usuarios-routing
-          uri: https://ms-deteccion-y-reporte.onrender.com
+        - id: ms-usuarios
+          uri: https://ms-deteccion-y-reporte.onrender.com # Tu microservicio que gestiona usuarios
           predicates:
             - Path=/api/v1/usuarios/**
