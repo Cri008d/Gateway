@@ -12,11 +12,15 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
-            .csrf(csrf -> csrf.disable()) // Desactivar CSRF para permitir POST
-            .cors(cors -> cors.disable())
+            
+            .csrf(csrf -> csrf.disable()) 
+            
+            
+            .formLogin(form -> form.disable())
+            .httpBasic(basic -> basic.disable())
+            
             .authorizeExchange(exchanges -> exchanges
-                .pathMatchers("/api/v1/usuarios", "/api/v1/usuarios/**").permitAll()
-                .anyExchange().permitAll() // Permitir todo el tráfico
+                .anyExchange().permitAll()
             );
         return http.build();
     }
