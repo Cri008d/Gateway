@@ -13,8 +13,9 @@ public class SecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
             .csrf(csrf -> csrf.disable()) // Desactivar CSRF para permitir POST
+            .cors(cors -> cors.disable())
             .authorizeExchange(exchanges -> exchanges
-                .pathMatchers("/api/v1/usuarios/**").permitAll()
+                .pathMatchers("/api/v1/usuarios", "/api/v1/usuarios/**").permitAll()
                 .anyExchange().permitAll() // Permitir todo el tráfico
             );
         return http.build();
