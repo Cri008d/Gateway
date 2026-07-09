@@ -6,11 +6,11 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      # --- AGREGAR CONFIGURACIÓN DE CORS AQUÍ ---
+
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*" # O la URL específica de tu frontend en Render
+            allowedOrigins: "*" 
             allowedMethods:
               - GET
               - POST
@@ -26,8 +26,13 @@ spring:
           predicates:
             - Path=/api/reportes/**
 
-        # 2. NUEVA RUTA: Redirige las peticiones de usuarios al mismo microservicio
+        # 2.Redirige las peticiones de usuarios al mismo microservicio
         - id: ms-usuarios-routing
           uri: https://ms-deteccion-y-reporte.onrender.com
           predicates:
             - Path=/api/v1/usuarios/**
+        # 3. Ruta alertas
+        - id: ms-alertas-routing
+          uri: https://ms-deteccion-y-reporte.onrender.com
+          predicates:
+            - Path=/api/alertas/**
