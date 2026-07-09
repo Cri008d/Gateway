@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
                 .pathMatchers("/api/usuarios/login", "/api/usuarios/registrar").permitAll()
                 .pathMatchers("/api/notificaciones/**").permitAll()
+                .pathMatchers("/api/alertas/**").permitAll()
                 .anyExchange().authenticated() 
             );
         return http.build();
