@@ -2,9 +2,12 @@ package com.gateway.api_gateway.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+
 
 @Configuration
 @EnableWebFluxSecurity
@@ -15,13 +18,20 @@ public class SecurityConfig {
             
             .csrf(csrf -> csrf.disable()) 
             
+            .cors(cors -> cors.configurationSource(request -> 
+                new CorsConfiguration().applyPermitDefaultValues()
+            ))
             
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
             
-            .authorizeExchange(exchanges -> exchanges
-                .anyExchange().permitAll()
+            .authorizeExchange(exchange -> exchange
+                .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
+                .pathMatchers("/api/usuarios/login", "/api/usuarios/registrar").permitAll()
+                .pathMatchers("/api/notificaciones/**").permitAll()
+                .anyExchange().authenticated() 
             );
         return http.build();
     }
+
 }
