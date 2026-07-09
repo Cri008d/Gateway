@@ -10,7 +10,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*" 
+            allowedOrigins: "https://valle-del-sol-front.onrender.com" 
             allowedMethods:
               - GET
               - POST
